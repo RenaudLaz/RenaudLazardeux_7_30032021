@@ -74,8 +74,3 @@ ADD CONSTRAINT fk_like_post FOREIGN KEY (postId)
 ON DELETE CASCADE;
 
 show tables;
-
-
-
-
-
