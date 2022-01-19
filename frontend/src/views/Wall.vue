@@ -1,10 +1,5 @@
 <template>
-    <header>
-    <img class="img-logo" src="../../src/assets/logos/icon-above-font.png" alt="Logo Groupomania"/>
-    
-    <a href>Profil </a>
-    </header>
-
+<Header />
     <div class="action">
         <button v-on:click="showNewMessageContainer" class="create-post"><i class="fas fa-pen"></i></button>
     </div>
@@ -43,9 +38,12 @@
 <script>
     import axios from 'axios'
 
+    import Header from '@/components/Header.vue'
     export default {
         name: 'Wall',
-        components: {},
+        components: {
+            Header,
+        },
         props: {
             // msg: String
         },
@@ -113,26 +111,18 @@
 </script>
 
 <style scoped lang="scss">
-
-header { 
-    position: absolute;
-    top:0;
-    width: 100%;
-    background-color: #DC143C;
-    height: 120px;
-}
 .fas{
     font-size: 2em;
 }
 .create-post{
     position: absolute;
-    top: 150px;
+    top: 300px;
     right: 40px;
     height: 80px;
     width: 80px;
-    color: #DC143C;
-    background-color: white;
-    border: 3px solid #DC143C;
+    color: #FED6D7;
+    background-color: #FED6D7;
+    border: 3px solid #000;
     border-radius: 3em;
 }
 textarea{
@@ -152,15 +142,15 @@ textarea{
 .new-message-container{  
     margin: 150px auto auto auto;
     margin-bottom: 50px;
-    background-color: #134aa7;
-    height: 400px;
-    width: 300px;
+    background-color: #fff;
+    height: 350px;
+    width: 90%;
     border: #DC143C 5px solid;
     border-radius: 1.5em;
 }
 .wall-container{
     margin: 150px auto;
-    background-color: #DC143C;
+    background-color: #FED6D7;
     height: auto;
     width: 90%;
     border: #134aa7 5px solid;
@@ -168,7 +158,8 @@ textarea{
 }
 .wall-container-messages {
     color: white;
-    background-color: #134aa7;
+    background-color: #fff;
+    border: black 2px solid;
     border-radius: 1.5em;
     margin: 15px 15px 50px 15px;
 }
@@ -180,7 +171,7 @@ textarea{
     height: 50px;
     border-radius: 1.5em 1.5em 0 0;
     background-color: white;
-    border-bottom: 5px #DC143C solid;
+    border-bottom: 5px #FED6D7 solid;
 }
 .avatar{
     width: 40px;
@@ -189,16 +180,20 @@ textarea{
 }
 span.author {
     color: #134aa7;
+    font-weight: bolder;
+    font-size: 1.5em;
 }
 .post-text{
     font-size: 1.3em;
 }
-.reply-post{
-    position: absolute;
-    right: 0;
-    background-color: #134aa7;
-    border: 1px white solid;
-    color: white;
+.new-comment-container{
+    border-top:black solid 2px;
+}
+.button-post{
+    background-color: #FED6D7;
+    border: 1px black solid;
+    color: black;
+    margin: 5px auto;
 }
 .img-logo{
     height: 100px

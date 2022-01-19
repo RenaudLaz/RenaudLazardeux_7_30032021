@@ -1,9 +1,9 @@
 //connexion à la base de données
 module.exports = {
     DB: 'groupomania',
-    USER: 'root',
-    PASSWORD: 'Admin',
-    HOST: 'localhost',
+    USER: 'Root',
+    PASSWORD: 'Paris91!',
+    HOST: '192.168.1.24',
     dialect: 'mysql',
     pool: {
       max: 50,  //nb max de connexion
