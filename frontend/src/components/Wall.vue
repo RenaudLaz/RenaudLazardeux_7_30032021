@@ -1,6 +1,6 @@
 <template>
     <header>
-    <!-- <img :src="../src/assets/illustation/icon-left-font.png" alt="Logo Groupomania"/>  -->
+    <img class="img-logo" src="../../src/assets/logos/icon-above-font.png" alt="Logo Groupomania"/>
     
     <a href>Profil </a>
     </header>
@@ -47,7 +47,7 @@
         name: 'Wall',
         components: {},
         props: {
-            msg: String
+            // msg: String
         },
         data() {
             return {
@@ -119,7 +119,7 @@ header {
     top:0;
     width: 100%;
     background-color: #DC143C;
-    height: 70px;
+    height: 120px;
 }
 .fas{
     font-size: 2em;
@@ -159,7 +159,7 @@ textarea{
     border-radius: 1.5em;
 }
 .wall-container{
-    margin: 100px auto;
+    margin: 150px auto;
     background-color: #DC143C;
     height: auto;
     width: 90%;
@@ -199,6 +199,9 @@ span.author {
     background-color: #134aa7;
     border: 1px white solid;
     color: white;
+}
+.img-logo{
+    height: 100px
 }
 </style>
 

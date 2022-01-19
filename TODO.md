@@ -2,6 +2,9 @@
 ## Tasklist
 
 * [X] Recuperer les messages
+* [ ] Creer le composant Header
+* [ ] Mettre en place le routage 
+* [ ] Creer la page mon compte
 * [ ] Mettre en forme les messages (CSS)
 * [ ] Ajouter un message  
     * [ ] Afficher un bloc pour ajouter un message

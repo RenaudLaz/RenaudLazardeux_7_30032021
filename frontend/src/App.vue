@@ -1,17 +1,20 @@
 <template>
-  <Wall msg="Bienvenue sur le réseau social de Groupomania"/>
+  <!--<Header />-->
+  <router-view></router-view>
 </template>
 
 <script>
-import Wall from './components/Wall.vue'
-//import Home from './components/Home.vue'
+// import Wall from './components/Wall.vue'
+// import Header from './components/Header.vue'
+// import Home from './components/Home.vue'
 
 
 export default {
   name: 'App',
   components: {
-    Wall,
-    //Home
+    // Header,
+    // Wall,
+    // Home
   }
 }
 </script>
