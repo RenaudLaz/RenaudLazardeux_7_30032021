@@ -1,24 +1,24 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Wall from '../views/Wall.vue' // eventuellement bouger Wall dans views
-// import Home from '../views/Home.vue'
-//import Profile from '../views/Profile.vue'
+import Wall from '../views/Wall.vue'
+import Home from '../views/Home.vue'
+import Profile from '../views/Profile.vue'
 
 const routes = [
-    /* {
+    {
         path: '/',
         name: 'Home',
         component: Home
-    }, */
+    },
     {
         path: '/Wall',
         name: 'Wall',
         component: Wall
-    }/* {,
+    },
     {
-        path: '/profile',
+        path: '/Profile',
         name: 'Profile',
         component: Profile
-    }*/
+    }
 ]
 
 const router = createRouter({
