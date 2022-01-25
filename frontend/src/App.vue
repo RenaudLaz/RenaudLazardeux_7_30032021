@@ -1,21 +1,16 @@
 <template>
+    <Header/>
     <router-view></router-view>
-    <Wall/>
-    <Profile/>
 </template>
 
 
 <script>
-    import Wall from './views/Wall.vue'
-    import Profile from './views/Profile.vue'
-    //import Home from './views/Home.vue'
+    import Header from './components/Header.vue'
 
     export default {
         name: 'App',
         components: {
-            Wall,
-            Profile,
-            //Home,
+            Header,
         }
     }
 </script>

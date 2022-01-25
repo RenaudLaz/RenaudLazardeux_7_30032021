@@ -3,7 +3,7 @@
 
 * [X] Recuperer les messages
 * [X] Creer le composant Header
-* [ ] Mettre en place le routage 
+* [X] Mettre en place le routage 
 * [X] Creer la page mon compte
 * [X] Mettre en forme les messages (CSS)
 * [ ] Ajouter un message  
@@ -27,8 +27,8 @@
 * [ ] Moderer
     * [ ] avoir un compte admin en base
     * [ ] les messages moderes ne s'affichent plus
-* [ ] Page profil
-    * [ ] Afficher mon profil
+* [X] Page profil
+    * [] Afficher mon profil
     * [ ] Editer mon nom / prenom
 
 

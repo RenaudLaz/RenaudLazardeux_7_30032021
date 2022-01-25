@@ -1,5 +1,4 @@
 <template>
-    <Header/>
         <div class="wall">
             <div class="action">
                 <button v-on:click="showNewMessageContainer" class="create-post"><i class="fas fa-pen"></i></button>
@@ -7,8 +6,10 @@
 
             <div class="new-message-container" v-if="isVisbleMessageContainer">
                 <textarea class="create-text" placeholder=" Entrez votre message" v-model="newMessage"></textarea><br/>
-                <button v-on:click="cancelNewNessage" class="button-post cancel-post">Annuler</button>
-                <button v-on:click="publishNewMessage" class="button-post publish-post">Publier</button>    
+                <div class="button-publish">
+                    <button v-on:click="cancelNewNessage" class="button-post cancel-post">Annuler</button>
+                    <button v-on:click="publishNewMessage" class="button-post publish-post">Publier</button>    
+                </div>
             </div>
 
             <section class="wall-container">
@@ -47,11 +48,9 @@
 <script>
     import axios from 'axios'
 
-    import Header from '@/components/Header.vue'
     export default {
         name: 'Wall',
         components: {
-            Header,
         },
         props: {
             // msg: String
@@ -96,15 +95,14 @@
         mounted() {
 
           axios.get('http://192.168.1.24:3000/api/post', {
-                headers: {
-                    'Content-Type' : 'application/json',
+                /*headers: {
                     'Authorization': 'Bearer ' + localStorage.getItem('token')
-                }
+                }*/
             })
             .then(response => {this.posts = response.data;})
             .catch(() => {this.messError = 'Une erreure s\'est produite'})
 
-            const userId = localStorage.getItem('userId');
+/*            const userId = localStorage.getItem('userId');
 
 
             axios.get('http://192.168.1.24:3000/api/user/' +userId, {
@@ -114,6 +112,7 @@
             })
             .then(response => {this.user = response.data;})
             .catch(() => {this.messError = 'Une erreure s\'est produite'})
+*/
         }
     }
 </script>
@@ -124,9 +123,9 @@
     font-size: 2em;
 }
 .create-post{
-    position: absolute;
-    top: 370px;
-    right: 40px;
+    position:absolute;
+    top: 320px;
+    right: 50px;   
     height: 80px;
     width: 80px;
     color: #FED6D7;
@@ -135,13 +134,14 @@
     border-radius: 3em;
 }
 textarea{
-    background-color: #FED6D7;
+    background-color: #FFF;
     resize : none;
-    margin-top: 20px;
-    margin-bottom: 30px;
+    margin: 30px;
+    padding: 5px;
+    border: 1px solid #000;
     border-radius: 1em;
     width: 90%;
-    height: 65%;
+    height: 50%;
     font-size: 1.2em;
 }
 .button-post{
@@ -151,13 +151,14 @@ textarea{
     border-radius: 1em;
 }
 .new-message-container{  
-    margin: 150px auto auto auto;
-    margin-bottom: 50px;
-    background-color: #FFF;
+    margin: 40px 0 0 40px;
+    background-color: #FED6D7;
     height: 350px;
-    width: 90%;
-    border: red 5px solid;
+    width: 70%;
+    border: #000 5px solid;
     border-radius: 1.5em;
+    display: flex;
+    flex-direction: column;
 }
 .wall-container{
     margin: 150px auto;
@@ -204,14 +205,26 @@ span.author {
 .new-comment-container{
     border-top:black solid 2px;
 }
+.button-publish{
+    display: flex;
+    justify-content: space-around;
+}
 .button-post{
-    background-color: #FED6D7;
-    border: 1px black solid;
-    color: black;
+    background-color: #000;
+    border: 1px #000 solid;
+    color: #FFF;
     margin: 5px auto;
+    height: 40px;
 }
 .img-logo{
     height: 100px
+}
+
+@media (max-width: 900px){
+    .create-post{
+    position:absolute;
+    top: 260px;    
+    }
 }
 </style>
 

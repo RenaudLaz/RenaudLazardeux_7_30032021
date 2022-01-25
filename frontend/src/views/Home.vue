@@ -1,6 +1,5 @@
 <template>
-    <Header/>
-        <div class="homeeeeee">
+        <div class="home">
             <div class="signuplogin">
                 <form class="signup">
                     <h2 class="title">Créer un compte:</h2>
@@ -15,7 +14,7 @@
                     <input type="password" v-model="signuppwd" id="signuppwd" name="password" placeholder="**********">
                     <button class="valid-home">Valider inscription</button>
                 </form>
-
+                <span class="info-connection">Si vous avez déjà un compte:</span>
                 <form class="login">
                     <h2 class="title">Se connecter:</h2>
                     <label for="email" class="login-email">Email: </label>
@@ -64,7 +63,7 @@
             login() {
                 axios.post('http://192.168.1.24:3000/api/user/login', {
                     email: this.loginemail,
-                    password: this.loginmdp,
+                    password: this.loginpwd,
                 })
                 .then(response => {
                     localStorage.setItem('token', response.data.token);
@@ -83,7 +82,7 @@
                     lastName: this.lastName,
                     firstName: this.firstName,
                     email: this.signupemail,
-                    password: this.signupmdp,
+                    password: this.signuppwd,
                 })
                 .then(() => {this.messReussite = 'Vous pouvez vous connecter'})
                 .catch(() => {this.messError = 'Une erreure s\'est produite'})
@@ -98,7 +97,8 @@
     display:flex;
     justify-content:center;
     background-color: #FED6D7;
-    border: 1px solid black;
+    border: 0px solid black;
+    width: auto;
 }
 h2{
     text-align:center;
@@ -112,17 +112,20 @@ h2{
     width:40%;
     flex-direction:column;
     margin: 2em;
-    padding-left: 10px;
+    padding:0 10px;
     border: 5px solid black;
     border-radius: 1.5em;
     font-size:20px;
+}
+.info-connection{
+    display:none;
 }
 input{
     width: 95%;
     border: 1px lightgrey solid;
     border-radius: 0.8em;
     font-size:15px;
-    padding:5px;
+    padding: 5px;
 }
 .valid-home{
     margin:30px 20%; 
@@ -131,5 +134,25 @@ input{
     border-radius:1.5em;
     background-color: #FED6D7;
     font-size:1.2em;
+}
+
+@media (max-width: 900px){
+    h2{
+    font-size: 30px;
+    }
+    .signuplogin{
+    flex-direction: column;
+    width:100%;
+    }
+    .signup, .login{
+    padding:0 10px;
+    margin: 5px auto;
+    width:80%;
+    flex-direction:column;
+    }
+    .info-connection{
+    display: contents;
+    font-weight: bolder;
+    }
 }
 </style>
