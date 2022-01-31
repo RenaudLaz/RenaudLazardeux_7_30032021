@@ -21,17 +21,17 @@
 
 <style scoped lang="scss">
 h1{
-    background-color: #000;
+    background-color: #B84D54;
     color: #FFF;
     padding: 10px 0;
     width: 100%;
     border-radius: 0 0 0.5em 0.5em;
 }
 mark{
-    color: #FED6D7;  
+    color: #081E42;  
 }
 .header { 
-    background-color: #FED6D7;
+    background-color: #081E42;
     display: flex;
     flex-direction: column;
 }
@@ -44,15 +44,13 @@ mark{
 .far{
     margin: 12% 0;
     font-size: 4.7em;
-    color:#FED6D7;
-}
-a{
-    color: #000;
+    background-color:#FFF;
+    color: #B84D54;
 }
 .header-profil, img{
     height: 100px;
     width: 100px;
-    border: #000 3px solid;
+    border: #B84D54 3px solid;
     border-radius: 1.5em;
     text-align: center;
     background-color: #fff;

@@ -8,9 +8,9 @@ exports.createPost = (req, res, next) => {
     const text = req.body.text;
     const imageURL = req.body.imageURL;
     //recupérer userId
-    const token = req.headers.authorization.split(' ')[1];
-    const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
-    const userId = decodedToken.userId;
+    //const token = req.headers.authorization.split(' ')[1];
+    //const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
+    const userId = 1; //decodedToken.userId;
 
     if (text == '' && imageURL == '') {
         return res.status(400).json({ error: 'Ecrivez ou mettez une image' });
@@ -23,7 +23,7 @@ exports.createPost = (req, res, next) => {
             const post = db.Post.build({
                 text: req.body.text,
                 imageURL: req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}`: req.body.imageURL,
-                userId: req.body.userId
+                userId: 1 //req.body.userId
             })
             post.save()
             .then(() => res.status(201).json({ message: 'Message créé !' }, ))

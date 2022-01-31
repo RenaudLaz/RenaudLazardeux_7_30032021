@@ -86,7 +86,7 @@ exports.login = (req, res, next) => {console.log('ici')
                         {expiresIn: '24h'}
                     )
                 });
-                // Update las refresh
+                // Update last refresh
                 try {
                     db.User.update({
                         lastRefreshDate: db.Sequelize.literal('CURRENT_TIMESTAMP')

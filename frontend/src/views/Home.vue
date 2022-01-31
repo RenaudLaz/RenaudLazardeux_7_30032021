@@ -1,7 +1,7 @@
 <template>
         <div class="home">
             <div class="signuplogin">
-                <form class="signup">
+                <form @submit.prevent="signup" class="signup">
                     <h2 class="title">Créer un compte:</h2>
                     <label for="lastName" class="signup-lastName">Nom: </label>
                     <input type="text" v-model="lastName" id="lastName" name="lastName" placeholder="Last name">
@@ -12,10 +12,13 @@
                     <input type="email" v-model="signupemail" id="signupemail" name="email" placeholder="groupomania@groupomania.com">
                     <label for="password" class="signup-pwd">Mot de passe: </label>
                     <input type="password" v-model="signuppwd" id="signuppwd" name="password" placeholder="**********">
+                    <label for="firstName" class="signup-firstName">Prénom: </label>
+                    <input type="text" v-model="firstName" id="firstName" name="firstName" placeholder="First name">
+                    <br/>
                     <button class="valid-home">Valider inscription</button>
                 </form>
                 <span class="info-connection">Si vous avez déjà un compte:</span>
-                <form class="login">
+                <form @submit.prevent="login" class="login">
                     <h2 class="title">Se connecter:</h2>
                     <label for="email" class="login-email">Email: </label>
                     <input type="email" v-model="loginemail" id="loginemail" name="email" placeholder="groupomania@groupomania.com">
@@ -34,6 +37,7 @@
 
 <script>
     import axios from 'axios'
+
     export default {
         name: 'Home',
             components: {},
@@ -57,11 +61,11 @@
             this.$router.push('wall');
             }
         },
-        
+                
         methods: {
             //Se connecter
             login() {
-                axios.post('http://192.168.1.24:3000/api/user/login', {
+                axios.post('http://localhost:3000/api/user/login', {
                     email: this.loginemail,
                     password: this.loginpwd,
                 })
@@ -70,22 +74,22 @@
                     localStorage.setItem('userId', response.data.userId);
                     localStorage.setItem('lastName', response.data.lastName);
                     localStorage.setItem('firstName', response.data.firstName);
-                    //localStorage.setItem('avatar', response.data.avatar);
-                    //localStorage.setItem('statut', response.data.statut);
+                    localStorage.setItem('avatar', response.data.avatar);
+                    localStorage.setItem('statut', response.data.statut);
                     this.$router.push('wall');
                 })
-                .catch(() => {this.messError = 'Une erreure s\'est produite'})
+                .catch(() => {console.log('Connexion échouée')})
             },
             //S'inscrire
             signup() {
-                axios.post('http://192.168.1.24:3000/api/user/signup', {
+                axios.post('http://localhost:3000/api/user/signup', {
                     lastName: this.lastName,
                     firstName: this.firstName,
                     email: this.signupemail,
                     password: this.signuppwd,
                 })
-                .then(() => {this.messReussite = 'Vous pouvez vous connecter'})
-                .catch(() => {this.messError = 'Une erreure s\'est produite'})
+                .then(() => {console.log('Inscription prise en compte')})
+                .catch(() => {console.log('Inscription échouée')})
             },
         }
     }
@@ -96,8 +100,7 @@
 .signuplogin{
     display:flex;
     justify-content:center;
-    background-color: #FED6D7;
-    border: 0px solid black;
+    background-color: #081E42;
     width: auto;
 }
 h2{
@@ -113,12 +116,13 @@ h2{
     flex-direction:column;
     margin: 2em;
     padding:0 10px;
-    border: 5px solid black;
+    border: 5px solid #B84D54;
     border-radius: 1.5em;
     font-size:20px;
 }
 .info-connection{
     display:none;
+    color: #FFF;
 }
 input{
     width: 95%;
@@ -132,10 +136,13 @@ input{
     width: 60%;  
     border:2px solid #000;
     border-radius:1.5em;
-    background-color: #FED6D7;
+    background-color: #B84D54;
+    color: #FFF;
     font-size:1.2em;
 }
-
+button{
+    cursor:pointer;
+}
 @media (max-width: 900px){
     h2{
     font-size: 30px;
