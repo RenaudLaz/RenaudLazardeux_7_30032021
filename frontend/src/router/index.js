@@ -7,19 +7,38 @@ const routes = [
     {
         path: '/',
         name: 'Home',
-        component: Home
+        component: Home,
     },
     {
         path: '/Wall',
         name: 'Wall',
-        component: Wall
+        component: Wall,  
+        meta:{
+            middleware:"authenticated",
+            title:'Home'
+        }
     },
     {
         path: '/Profile',
         name: 'Profile',
-        component: Profile
+        component: Profile,  
+        meta:{
+            middleware:"authenticated",
+            title:'Home'
+        }
     }
 ]
+/*
+router.beforeEach((to, from, next) => {
+    
+    if(to.meta.middleware=="authenticated"){
+        if(!localStorage.getToken() ){
+            next('/home')
+        }
+        next()
+    }
+})
+*/
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),

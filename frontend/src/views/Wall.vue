@@ -23,9 +23,8 @@
                         <span class="author"> {{ post.User.firstName }} {{ post.User.lastName }} </span>
 
                         <span class="author-avatar">    
-                            <!--<p v-if="user.avatar == null"> <img src="../assets/logos/avatarnull.png" class="avatar"> </p>-->
-                            <!--<p v-if="user.avatar != null"> <img :src="post.User.avatar" class="avatar"/> </p>-->
-                            <img class="avatar" :src="post.User.avatar"/>
+                            <img v-if="post.User.avatar" :src="post.User.avatar" :alt="'avatar de' + post.User.lastName + post.User.firstName" class="avatar"/>
+                            <i v-if="post.User.avatar == null || post.User.avatar == ''" class="fa fa-user-astronaut avatar"></i>
                         </span>
                     </div>
 
@@ -48,6 +47,7 @@
                             <button v-on:click="publishNewComment" class="button-post publish-reply">Publier</button>   
                         </div> 
                     </div>   
+                    <Commentaire :postId="post.id" :commentaires="commentaires" v-if="commentSectionId == 'commentSection-' + post.id"/>
                 </article>
             </section>
         </div>
@@ -56,10 +56,13 @@
 
 <script>
     import axios from 'axios'
+//    import Commentaire from '@/components/Commentaire.vue'
+
 
     export default {
         name: 'Wall',
-        components: {
+        components: {   
+//            Commentaire,
         },
         props: {
         },
@@ -69,7 +72,7 @@
                 isVisbleCommentContainer: false,
                 newMessage: "",
                 newComment: "",
-                messages: [
+                posts: [
                 ]
             }
         },
@@ -80,7 +83,7 @@
             showNewCommentContainer() {
                 this.isVisbleCommentContainer = !this.isVisbleCommentContainer 
             },
-            cancelNewNessage() {
+            cancelNewMessage() {
                 this.newMessage = ''
                 this.isVisbleMessageContainer = false;
             },
@@ -89,9 +92,19 @@
                 this.isVisbleCommentContainer = false;
             },
             publishNewMessage() {    
-                axios.post('http://localhost:3000/api/post', {
-                    message: this.newMessage
-                }, {})
+                console.log(this.newMessage)
+
+                axios.post('http://localhost:3000/api/post', {  
+                        text: this.newMessage
+                    },
+                    {
+                        headers: {
+                            'Authorization': 'Bearer ' + localStorage.getItem('token'),
+                            'Content-Type' : 'application/json'
+                        }
+                    }
+
+                )
                 // apres, soit on recharge la page (solution la moins bien)
                 // soit on ajoute ce dernier message dans notre array this.messages et il apparaitra sur la page automatiquement (solution comme il faut) 
                 .then(response => {this.newMessage = response.data;})
@@ -99,26 +112,23 @@
             }
         },
         mounted() {
-
           axios.get('http://localhost:3000/api/post', {
                 headers: {
-                    'Content-Type' : 'application/json',
                     'Authorization': 'Bearer ' + localStorage.getItem('token')
                 }
             })
-            .then(response => {this.posts = response.data;})
+            .then(response => {console.log(response); this.posts = response.data;})
             .catch(() => {console.log('Erreur au chargement des messages')}) 
 
             const userId = localStorage.getItem('userId');
 
             axios.get('http://localhost:3000/api/user/' + userId, {
-                //headers: {
-                    //Authorization: 'Bearer ' + localStorage.getItem('token')
-                //}
+                headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('token')
+                }
             })
             .then(response => {this.user = response.data;})
             .catch(() => {console.log('Erreur au chargement de l\'utilisateur')})
-
         }
     }
 </script>
@@ -205,6 +215,10 @@ input{
     border-radius: 1.2em 1.2em 0 0;
     border-bottom: 5px #B84D54 solid;
 }
+.fa-user-astronaut{
+    color: #FFF;
+    font-size: 2.6em;
+}
 .avatar{
     width: 60px;
     height: 60px;
@@ -221,6 +235,7 @@ span.author {
     margin-left: 30px;
     text-align: justify;
     font-size: 1.3em;
+    color: #000;
 }
 .create-reply{
     margin-top: 30px;

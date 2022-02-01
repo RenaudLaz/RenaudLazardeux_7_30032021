@@ -8,9 +8,9 @@ exports.createPost = (req, res, next) => {
     const text = req.body.text;
     const imageURL = req.body.imageURL;
     //recupérer userId
-    //const token = req.headers.authorization.split(' ')[1];
-    //const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
-    const userId = 1; //decodedToken.userId;
+    const token = req.headers.authorization.split(' ')[1];
+    const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
+    const userId = decodedToken.userId;
 
     if (text == '' && imageURL == '') {
         return res.status(400).json({ error: 'Ecrivez ou mettez une image' });
@@ -23,7 +23,7 @@ exports.createPost = (req, res, next) => {
             const post = db.Post.build({
                 text: req.body.text,
                 imageURL: req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}`: req.body.imageURL,
-                userId: 1 //req.body.userId
+                userId: userId
             })
             post.save()
             .then(() => res.status(201).json({ message: 'Message créé !' }, ))
@@ -46,9 +46,9 @@ exports.createPost = (req, res, next) => {
 // Voir tout les messages
 exports.getAllPosts = (req, res, next) => {
     //recupérer userId
-    //const token = req.headers.authorization.split(' ')[1];
-    //const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
-    const userId = 1;//decodedToken.userId;
+    const token = req.headers.authorization.split(' ')[1]; //récupération
+    const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET'); //décodage
+    const userId = decodedToken.userId; //vérification
 
     db.Post.findAll({        
         order: [['createdAt', "DESC"]] , //ordre date descendant

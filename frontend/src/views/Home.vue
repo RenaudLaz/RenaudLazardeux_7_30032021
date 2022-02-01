@@ -12,8 +12,6 @@
                     <input type="email" v-model="signupemail" id="signupemail" name="email" placeholder="groupomania@groupomania.com">
                     <label for="password" class="signup-pwd">Mot de passe: </label>
                     <input type="password" v-model="signuppwd" id="signuppwd" name="password" placeholder="**********">
-                    <label for="firstName" class="signup-firstName">Prénom: </label>
-                    <input type="text" v-model="firstName" id="firstName" name="firstName" placeholder="First name">
                     <br/>
                     <button class="valid-home">Valider inscription</button>
                 </form>

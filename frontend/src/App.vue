@@ -19,7 +19,6 @@
 *
 {
     font-family: 'modern', Arial, serif;
-    color: black;  
     text-decoration: none;
     background-color: transparent;
     margin: 0;
