@@ -5,15 +5,17 @@
             </div>
 
             <div class="new-message-container" v-if="isVisbleMessageContainer">
-                <textarea v-model="newMessage" class="" name="message" id="create-text" placeholder="Entrez votre message"/>    
-                <div class="create-file">
-                    <label for="file">Sélectionner le fichier à envoyer</label>
-                    <input type="file" id="file" name="file" accept=".png,.jpg,.jpeg,.gif" multiple>
-                </div>
+                <form v-on:submit.prevent="createPost">
+                    <textarea v-model="newMessage" class="" name="message" id="create-text" placeholder="Entrez votre message"/>   
+                    <div class="create-file">
+                        <img v-if="imagePreview" :src="imagePreview" id="preview" class=""/>     
+                        <input type="file" @change="onFileSelected" accept="image/*">       
+                    </div> 
+                </form>
 
                 <div class="button-publish">
                     <button v-on:click="cancelNewNessage" class="button-post cancel-post">Annuler</button>
-                    <button v-on:click="publishNewMessage" class="button-post publish-post">Publier</button>    
+                    <button v-on:click="publishNewMessage" type="submit" class="button-post publish-post">Publier</button>    
                 </div>
             </div>
 
@@ -23,19 +25,19 @@
                         <span class="author"> {{ post.User.firstName }} {{ post.User.lastName }} </span>
 
                         <span class="author-avatar">    
-                            <img v-if="post.User.avatar" :src="post.User.avatar" :alt="'avatar de' + post.User.lastName + post.User.firstName" class="avatar"/>
+                            <img v-if="post.User.avatar" :src="post.User.avatar" :alt="'avatar de ' + post.User.lastName + post.User.firstName" class="avatar"/>
                             <i v-if="post.User.avatar == null || post.User.avatar == ''" class="fa fa-user-astronaut avatar"></i>
                         </span>
                     </div>
 
                     <div class="bloc-post">
                         <span class="post-image"> 
-                            <img :src="post.imageURL" style="max-width: 300px"/> 
+                            <img :src="post.imageUrl"/> 
                         </span>
 
                         <span class="post-text"> 
                             {{ post.text }} 
-                        </span> <br/>     
+                        </span> <br/>
                     </div>  
 
                         <button v-on:click="showNewCommentContainer" class="button-post reply-post">Répondre</button>   
@@ -56,13 +58,13 @@
 
 <script>
     import axios from 'axios'
-//    import Commentaire from '@/components/Commentaire.vue'
+    import Commentaire from '@/components/Commentaire.vue'
 
 
     export default {
         name: 'Wall',
         components: {   
-//            Commentaire,
+            Commentaire,
         },
         props: {
         },
@@ -72,43 +74,51 @@
                 isVisbleCommentContainer: false,
                 newMessage: "",
                 newComment: "",
+                text: '',
+                imageUrl:'',
+                imagePreview: '',
+                userId: localStorage.getItem('userId'),
                 posts: [
                 ]
             }
         },
         methods: {
-            showNewMessageContainer() {
-                this.isVisbleMessageContainer = !this.isVisbleMessageContainer
-            },
-            showNewCommentContainer() {
-                this.isVisbleCommentContainer = !this.isVisbleCommentContainer 
-            },
-            cancelNewMessage() {
-                this.newMessage = ''
-                this.isVisbleMessageContainer = false;
-            },
-            cancelNewComment() {
-                this.newComment = ''
-                this.isVisbleCommentContainer = false;
+            onFileSelected(event) {
+                this.imageUrl = event.target.files[0];
+                this.imagePreview = URL.createObjectURL(this.imageUrl);
             },
             publishNewMessage() {    
-                console.log(this.newMessage)
+                const formData = new FormData();
+                formData.append("text", this.text);
+                formData.append("image", this.imageUrl);
+                formData.append("userId", localStorage.getItem('userId'));
 
-                axios.post('http://localhost:3000/api/post', {  
-                        text: this.newMessage
-                    },
-                    {
+                axios.post('http://localhost:3000/api/post', formData, {  
                         headers: {
                             'Authorization': 'Bearer ' + localStorage.getItem('token'),
                             'Content-Type' : 'application/json'
                         }
                     }
-
                 )
-                // apres, soit on recharge la page (solution la moins bien)
-                // soit on ajoute ce dernier message dans notre array this.messages et il apparaitra sur la page automatiquement (solution comme il faut) 
-                .then(response => {this.newMessage = response.data;})
+                .then(response => {
+                    this.newMessage = response.data;
+                    window.location.reload();
+                })
                 .catch(() => {console.log('Erreur à la publication du message')}) 
+            },
+            showNewMessageContainer() {
+                this.isVisbleMessageContainer = !this.isVisbleMessageContainer
+            },
+            cancelNewMessage() {
+                this.newMessage = ''
+                this.isVisbleMessageContainer = false;
+            },
+            showNewCommentContainer() {
+                this.isVisbleCommentContainer = !this.isVisbleCommentContainer 
+            },
+            cancelNewComment() {
+                this.newComment = ''
+                this.isVisbleCommentContainer = false;
             }
         },
         mounted() {
@@ -135,6 +145,10 @@
 
 
 <style scoped lang="scss">
+//variables de couleurs
+$primaryColor: #081E42;
+$secondaryColor: #B84D54;
+
 .fas{
     font-size: 2em;
     color: #081E42;
@@ -177,7 +191,7 @@ input{
 .new-message-container{  
     margin: 40px 0 0 40px;
     background-color: #081E42;
-    height: 400px;
+    height: auto;
     width: 70%;
     border: #B84D54 5px solid;
     border-radius: 1.5em;
@@ -237,6 +251,9 @@ span.author {
     font-size: 1.3em;
     color: #000;
 }
+img{
+    max-width: 400px;
+}
 .create-reply{
     margin-top: 30px;
     height: 80px;
@@ -286,6 +303,9 @@ span.author {
         margin-top:30px;
         margin-left:0;
     }  
+    img{
+        max-width: 100%;
+    }
 }
 </style>
 

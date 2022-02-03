@@ -3,26 +3,27 @@
     <div class="profil"> 
         <h2>Mon profil</h2>
 
-        <div class="resume-profil">
-            <div class="profil-author">
-                <span class="profil-user"> {{ user.firstName }} {{ user.lastName }} </span>
-                <i v-if="user.avatar == null || user.avatar == ''" class="profil-avatar"> <img src="../assets/logos/photo.png"/> </i>
-                <img v-if="user.avatar" :src="user.avatar" :alt="'avatar de' + user.firstname + user.lastname" class="profil-avatar">            </div>
-                
-                <p v-if="user.description == null" class="profil-description">Vous n'avez pas encore de description</p>
-                <p v-if="user.description != null" class="profil-description">{{user.description}}</p>
+        <div class="profilResume">
+            <div class="profilAuthor">
+                <div class="profilUser"> {{ user.firstName }} {{ user.lastName }} </div>
+                <i v-if="user.avatar == null || user.avatar == ''" class="profilAvatar"> <img src="../assets/logos/photo.png"/> </i>
+                <img v-if="user.avatar" :src="user.avatar" :alt="'avatar de ' + user.firstName + user.lastName" class="profilAvatar">            
             </div>
-        
-        <div class="connexion-profil">
-            <div class="info-user">
+                
+            <p v-if="user.description == null || user.description == ''" class="profilDescription">Vous n'avez pas encore de description</p>
+            <p v-if="user.description != null" class="profilDescription">{{user.description}}</p>
+        </div>
+    
+        <div class="profilConnexion">
+            <div class="userInfo">
                 <h3>Mes informations de profil:</h3>
                 <span>Email : {{ user.email }} </span><br/>
                 <span>Mot de passe : **********</span><br/>
                 <span>Statut : {{ user.statut }}</span><br/>
             </div>
         </div>
-        <div class="bouton">
-            <div class="boutonRow" v-if="!showDelete">
+        <div class="buton">
+            <div class="butonRow" v-if="!showDelete">
                 <button v-on:click="togglewModifierElement">Modifier profil</button>
                 <br/>
                 <button v-on:click="boutonSupprimer">Supprimer</button>
@@ -35,7 +36,7 @@
             </div>
 
         </div>
-            <form v-if="showUpdateElement" class="formUpdateProfil">
+            <form v-if="showUpdateElement" class="form">
                 <div class="formDetails">
                     <label>Avatar</label>
                     <img v-if="imagePreview" :src="imagePreview" class="preview"/>
@@ -68,11 +69,13 @@
         data() {
             return {
                 //Voir l'user
-                user: "",
+                user: '',
                 //Modification user
                 password:'',
                 description:'',
                 avatar: '',
+                imagePreview: '',
+                //Bouton affichage
                 showUpdateElement: false,
                 showDelete: false,
 			}
@@ -115,7 +118,7 @@
                     window.location.reload();
 
                 })
-                .catch(() => {this.messError = 'Une erreur s\'est produite'})
+                .catch(() => {this.messError = 'Une erreure s\'est produite'})
 			},
             noUpdateProfil(){
                 this.showUpdateElement = !this.showUpdateElement
@@ -128,10 +131,10 @@
                         'Authorization': 'Bearer ' + localStorage.getItem('token')
                     }
                 })
-                .then(() => {this.messReussite = 'Vous avez supprimer votre compte',
+                .then(() => {console.log('Vous avez supprimer votre compte'),
                     localStorage.clear();
                     this.$router.push('/');})
-                .catch(() => {this.messError = 'Une erreur c\'est produite'})
+                .catch(() => {console.log('Une erreure s\'est produite')})
             },
             noDeleteUser(){
                 this.showDelete = !this.showDelete
@@ -141,13 +144,17 @@
             },			
             boutonSupprimer(){
 				this.showDelete = !this.showDelete
+            },
+            onFileSelected(event) {
+                this.avatar = event.target.files[0];
+                this.imagePreview = URL.createObjectURL(this.avatar);
             }
         },
 
 		mounted() {
             const userId = localStorage.getItem('userId');
 
-            axios.get('http://192.168.1.19:3000/api/user/' + userId, {
+            axios.get('http://localhost:3000/api/user/' + userId, {
                 headers: {
                     Authorization: 'Bearer ' + localStorage.getItem('token')
                 }
@@ -161,94 +168,106 @@
 </script>
 
 <style scoped lang="scss">
-    h3{
-        font-size: 25px;
-        margin-bottom: 20px;
-    }
-    h2, h3{
-        color: #B84D54;
+//variables de couleurs
+$primaryColor: #081E42;
+$secondaryColor: #B84D54;
 
-    }
-    span{
-        color: #FFF;
-        font-size: 1.1em;
-    }
-    img{
-        border: solid 3px #B84D54;
-        border-radius: 50%;
-        width: 150px;
-        height: 150px;
-    }
-    .profil{
-        display: flex;
-        flex-direction: column;
-        background-color: #081E42;
-        color: #FFF;
-    }
-    .connexion-profil, .resume-profil{
+.profil{
+    display: flex;
+    flex-direction: column;
+    background-color: $primaryColor;
+    color: #FFF;
+
+    &Resume &Connexion{
         margin-bottom: 40px;
         font-size:1.2em;
     }
-    .profil-author{
+    &Author{
         margin: 0 1em;
         display: flex;
         justify-content: space-between;
         align-items:center;
     }
-    .profil-user{
+    &User{
         font-size: 2em;
     }
-    .profil-description{
+    &Description, span{
         font-size: 1.2em;
         color:#FFF;
     }
-    button{
-        background-color: #B84D54;
-        border: 2px #FFF solid;
-        border-radius: 1em;
-        color: #FFF;
-        margin: 15px auto 25px auto;
-        height: 40px;
-        font-size: 1.2em;
-    }
-    .formUpdateProfil{
-        position: relative;
-        top: -350px;
-        background-color: #fff;
-        border: 4px solid #B84D54;
-        border-radius: 1em;
-        padding: 1em;
-        justify-content: center;
-    }
-    .formDetails{
+}
+.form{
+    position: relative;
+    top: -270px;
+    background-color: #fff;
+    border: 4px solid $secondaryColor;
+    border-radius: 1em;
+    padding: 1em;
+    justify-content: center; 
+    &Details{
         width: 70%;
         margin: 0 15%;
     }
-    textarea, input{
-        color: #000;
-        resize : none;
-        margin: 15px 30px 35px 30px;
-        padding: 10px;
-        border: 2px solid #B84D54;
-        border-radius: 1em;
-        width: 90%;
-        height: 50%;
-        font-size: 1.2em;
-    }
-    label{
-        color: #000;
-        font-weight:bold;
-        font-size: 1.2em;
-    }
+}
+h3{
+    font-size: 25px;
+    margin: 20px;
+}
+h2, h3{
+    color: $secondaryColor;
+}
+span{
+    color: #FFF;
+    font-size: 1.1em;
+}
+img{
+    border: solid 3px $secondaryColor;
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+}
+button{
+    background-color: $secondaryColor;
+    border: 2px #FFF solid;
+    border-radius: 1em;
+    color: #FFF;
+    margin: 15px auto 25px auto;
+    height: 40px;
+    font-size: 1.2em;
+}
+textarea, input{
+    color: #000;
+    resize : none;
+    margin: 15px 30px 35px 30px;
+    padding: 10px;
+    border: 2px solid $secondaryColor;
+    border-radius: 1em;
+    width: 90%;
+    height: 50%;
+    font-size: 1.2em;
+}
+label{
+    color: #000;
+    font-weight:bold;
+    font-size: 1.2em;
+}
 
-    @media (max-width: 900px){
-        .profil-author{
-            flex-direction:column;    
-        }
-        img{
-            margin: 20px 0;
-            width: 200px;
-            height: 200px;
-        }
+@media (max-width: 900px){
+    .profil-author{
+        flex-direction:column;    
     }
+    .formDetails{
+        width: 95%;
+        margin:0;
+    }
+    textarea, input{
+        margin: 20px 10px;
+        padding: 10px;
+    }
+    img{
+        margin: 20px 0;
+        width: 200px;
+        height: 200px;
+    }
+}
 </style>

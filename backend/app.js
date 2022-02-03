@@ -36,6 +36,7 @@ app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization'); //ajouter les headers mentionnés aux requêtes envoyées vers notre API
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS'); //envoyer des requêtes avec les méthodes mentionnées
   next();
+ 
 });
 
 
@@ -53,7 +54,7 @@ const userRoutes = require('./routes/user');
 app.use('/api/user', userRoutes);
 
 const likeRoutes = require('./routes/like');
-app.use('/api/like', likeRoutes);
+app.use('/api/post', likeRoutes);
 
 const commentaireRoutes = require('./routes/commentaire');
 app.use('/api/commentaire', commentaireRoutes);

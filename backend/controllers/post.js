@@ -166,6 +166,3 @@ exports.deletePost = (req, res, next) => {
         res.status(500).json({ error: 'Suppression du message échoué' })
     });
 }
-
-
-
