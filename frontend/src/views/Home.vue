@@ -1,7 +1,7 @@
 <template>
         <div class="home">
             <div class="signupLogin">
-                <form @submit.prevent="signup" class="signup">
+                <form @submit.prevent="signup" class="signup" method="post">
                     <h2 class="title">Créer un compte:</h2>
                     <label for="lastName" class="signupLastName">Nom: </label>
                     <input type="text" v-model="lastName" id="lastName" name="lastName" placeholder="Last name">
@@ -16,7 +16,7 @@
                     <button class="valid">Valider inscription</button>
                 </form>
                 <span class="infoConnection">Si vous avez déjà un compte:</span>
-                <form @submit.prevent="login" class="login">
+                <form @submit.prevent="login" class="login" method="post">
                     <h2 class="title">Se connecter:</h2>
                     <label for="email" class="loginEmail">Email: </label>
                     <input type="email" v-model="loginemail" id="loginemail" name="email" placeholder="groupomania@groupomania.com">

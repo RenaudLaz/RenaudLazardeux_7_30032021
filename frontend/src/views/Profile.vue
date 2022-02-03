@@ -53,7 +53,6 @@
                     <input v-model="password" type="password" autocomplete="current-password" placeholder="**********"/>
                     <button v-on:click="updateProfil" type="button">Valider</button>
                     <button v-on:click="noUpdateProfil" type="button">Annuler</button>
-
                 </div>
         </form>
     </div>
