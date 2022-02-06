@@ -37,7 +37,7 @@ exports.likePost = (req, res, next) => {
                         },{
                             where: { id: req.params.postId }
                         })
-                        .then(() => res.status(201).json({ message: 'Message liker' }))
+                        .then(() => res.status(201).json({ message: 'Message liké' }))
                         .catch(error => {
                             console.log(error)
                             res.status(500).json({ error: '1Like échoué' })

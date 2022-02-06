@@ -9,26 +9,26 @@
 * [X] Ajouter un message  
     * [X] Afficher un bloc pour ajouter un message
     * [X] Envoyer un message au serveur
-    * [ ] ajouter ce nouveau message à this.messages
-    * [ ] ajouter ce nouveau message à this.imageUrl
+    * [O] ajouter ce nouveau message à this.messages
+    * [O] ajouter ce nouveau message à this.imageUrl
 
-* [ ] Editer un message
-    * [ ] poser un petit crayon sur les messages quand ce sont les miens
-    * [ ] quand je clique sur le crayon
-    * [ ] apparait un champ textarea avec le message en mode editable
-    * [ ] je clique sur annuler, on recache
-    * [ ] je clique sur publier, on sauvegarde le changement
-* [ ] Afficher les commenaitrres
+* [O] Editer un message
+    * [O] poser un petit crayon sur les messages quand ce sont les miens
+    * [O] quand je clique sur le crayon
+    * [O] apparait un champ textarea avec le message en mode editable
+    * [O] je clique sur annuler, on recache
+    * [O] je clique sur publier, on sauvegarde le changement
+* [O] Afficher les commenaitrres
 * [ ] Editer un commentaire
-* [ ] Ajouter un commentaire
-* [ ] Authentication
+* [O] Ajouter un commentaire
+* [O] Authentication
     * [ ] Vue Router
     * [X] Page login
-* [ ] Liker
-* [ ] Afficher les likes
-* [ ] Moderer
-    * [ ] avoir un compte admin en base
-    * [ ] les messages moderes ne s'affichent plus
+* [O] Liker
+* [O] Afficher les likes
+* [O] Moderer
+    * [O] avoir un compte admin en base
+    * [O] les messages moderes ne s'affichent plus
 * [X] Page profil
     * [X] Afficher mon profil
     * [ ] Editer mon nom / prenom

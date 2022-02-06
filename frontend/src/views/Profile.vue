@@ -9,7 +9,6 @@
                 <i v-if="user.avatar == null || user.avatar == ''" class="profilAvatar"> <img src="../assets/logos/photo.png"/> </i>
                 <img v-if="user.avatar" :src="user.avatar" :alt="'avatar de ' + user.firstName + user.lastName" class="profilAvatar">            
             </div>
-                
             <p v-if="user.description == null || user.description == ''" class="profilDescription">Vous n'avez pas encore de description</p>
             <p v-if="user.description != null" class="profilDescription">{{user.description}}</p>
         </div>

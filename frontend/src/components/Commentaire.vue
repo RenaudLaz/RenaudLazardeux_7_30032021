@@ -10,8 +10,8 @@
                     <p>{{commentaire.text}}</p>
                 </div>
 
-                <div class="commentary-button" v-if="userId == commentaire.userId || statut == 'admin'">
-                    <button v-on:click="deleteCommentary(commentaire.id)">Supprimer</button>
+                <div  v-if="userId == commentaire.userId || statut == 'admin'">
+                    <button class="commentary-button" v-on:click="deleteCommentary(commentaire.id)">Supprimer</button>
                 </div>
             </div>
         </div>
@@ -73,64 +73,83 @@
 </script>
 
 <style scoped lang="scss">
+$primaryColor: #081E42;
+$secondaryColor: #B84D54;
 .commentary
 {
-    border: solid 3px #091F43;
+    border: solid 3px $primaryColor;
     border-radius: 20px;
     margin: 3%;
     padding: 3%;
+    background-color: $primaryColor;
     &-author
     {
         display: flex;
         align-items: center;
+        background-color: $primaryColor;
         span
         {
             margin-left: 3%;
-            color: #D1515A;
+            color: $secondaryColor;
             font-weight: bold;
             font-size: 1.5em;
         }
     }
     &-text
     {
-        background: #091f4312;
+        background: $primaryColor;
         border-radius: 20px;
         padding: 3%;
         margin-top: 3%;
     }
-}
- .writingComm
-    {
-        margin: 3%;
-        margin-top: 5%;
-        form
-        {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            border: solid 3px #D1515A;
-            border-radius: 20px;
-            padding: 3%;
-            width: 93%;
-            textarea
-            {
-                width: 98%;
-                height: 150px;
-            }
-            img
-            {
-                width: 100%;
-            }
-            button
-            {
-                border-radius: 30px;
-                box-shadow: 0px 3px 5px #091F43;
-                width: 50%;
-                font-size: 1.5em;
-                color: #D1515A;
-                margin-top: 3%;
-                margin-left: 25%;
-            }
-        }
+    &-button{
+        background-color: #B84D54;
+        border: 1px #FFF solid;
+        color: #FFF;
+        margin: 15px auto;
+        height: 40px;
+        width: 100px;
+        border-radius: 1em;
     }
+}
+.writingComm{
+    margin: 3%;
+    margin-top: 5%;
+    form
+    {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        background-color: $primaryColor;
+        border: solid 3px $secondaryColor;
+        border-radius: 20px;
+        padding: 3%;
+        width: 93%;
+        textarea{
+            width: 98%;
+            background-color: #FFF;
+            border-radius: 1em;
+            padding: 10px;
+            height: 150px;
+            resize : none;
+        }
+        img{
+            width: 100%;
+        }
+        button{
+            background-color: $secondaryColor;
+            border: 1px #FFF solid;
+            color: #FFF;
+            margin: 15px auto;
+            height: 40px;
+            width: 100px;
+            border-radius: 1em;
+        }
+     }
+}
+
+@media (max-width: 900px){
+
+}
+
 </style>

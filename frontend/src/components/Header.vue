@@ -71,7 +71,7 @@ mark{
         height:100px;  
         }
         &Title{
-            font-size:20px;
+            font-size: 20px;
         } 
         &Profil img{
             height: 80px;
@@ -79,7 +79,7 @@ mark{
         }
     }
     .far{
-        font-size: 3.9em;
+        font-size: 4.8em;
     }
 }
 </style>
