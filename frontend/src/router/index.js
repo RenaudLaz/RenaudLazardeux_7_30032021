@@ -8,6 +8,10 @@ const routes = [
         path: '/',
         name: 'Home',
         component: Home,
+        meta:{
+            middleware:"guest",
+            title:'Home'
+        }
     },
     {
         path: '/Wall',
@@ -28,21 +32,21 @@ const routes = [
         }
     }
 ]
-/*
-router.beforeEach((to, from, next) => {
-    
-    if(to.meta.middleware=="authenticated"){
-        if(!localStorage.getToken() ){
-            next('/home')
-        }
-        next()
-    }
-})
-*/
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
 })
 
+router.beforeEach((to, from, next) => {
+    
+    if(to.meta.middleware=="authenticated"){
+        if(!localStorage.getItem('token') ){
+            next( {path: '/'})
+            return
+        }
+        next()
+    }
+    next()
+})
 export default router

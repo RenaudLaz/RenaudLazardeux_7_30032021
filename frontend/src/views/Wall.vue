@@ -204,8 +204,8 @@
             // afficher les commentaires
             voir(sectionId) {
                 this.commentSectionId = sectionId;
-                this.boutonVoir = !this.boutonVoir
-                
+                this.boutonVoir = !this.boutonVoir;
+               
                 const postId = sectionId.replace('commentSection-', '');
 
                 axios.get('http://localhost:3000/api/commentaire/' + postId, {
@@ -356,7 +356,7 @@ button{
             opacity: 0;
         }
     }
-    }
+}
     &-publish{
         display: flex;
         justify-content: space-around;
@@ -459,15 +459,11 @@ button{
         margin-left:0;
     }  
     img{
-        max-width: 100%;
+        width: 100%;
     }
     .button{
-        flex-direction: column;
-        margin: 0;
-    &-author, &-commentary{
-        align-items: center;
+    flex-direction: column;
     }
-}
 }
 </style>
 
