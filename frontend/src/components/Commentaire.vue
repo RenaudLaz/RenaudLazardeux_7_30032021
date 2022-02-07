@@ -10,7 +10,7 @@
                     <p>{{commentaire.text}}</p>
                 </div>
 
-                <div  v-if="userId == commentaire.userId || statut == 'admin'">
+                <div v-if="userId == commentaire.userId || statut == 'admin'">
                     <button class="commentary-button" v-on:click="deleteCommentary(commentaire.id)">Supprimer</button>
                 </div>
             </div>
@@ -19,7 +19,7 @@
     <div class="writingComm">
         <form>
             <textarea v-model="text" class="" name="message" id="message" placeholder="Exprimez vous"/>
-            <button v-on:click="createCommentary" type="submit">Publier</button>
+            <button v-on:click="createCommentary" type="submit"><i class="fas fa-check-circle"></i></button>
         </form>
     </div>
 </template>
@@ -75,6 +75,9 @@
 <style scoped lang="scss">
 $primaryColor: #081E42;
 $secondaryColor: #B84D54;
+.fas{
+    font-size: 1.8em;
+}
 .commentary
 {
     border: solid 3px $primaryColor;
@@ -115,8 +118,7 @@ $secondaryColor: #B84D54;
 .writingComm{
     margin: 3%;
     margin-top: 5%;
-    form
-    {
+    form{
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -149,7 +151,13 @@ $secondaryColor: #B84D54;
 }
 
 @media (max-width: 900px){
-
+    .writingComm{
+        form{
+            textarea{
+                width: 92%;
+            }
+        }
+    }
 }
 
 </style>

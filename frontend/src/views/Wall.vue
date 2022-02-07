@@ -1,7 +1,7 @@
 <template>
     <div class="wall">
         <div class="pen">
-            <button v-on:click="showNewMessageContainer" class="create-post"><i class="fas fa-pen"></i></button>
+            <button v-on:click="showNewMessageContainer" class="create-post"><i class="fas fa-plus"></i></button>
         </div>
 <!--  Bloc de création message  -->
         <div class="new-message-container" v-if="isVisbleMessageContainer">
@@ -11,8 +11,8 @@
                 <input type="file" @change="onFileSelected" accept="images/*">       
             </form>
             <div class="button-publish">
-                <button v-on:click="cancelNewNessage" class="button-type cancel-post">Annuler</button>
-                <button v-on:click="publishNewMessage" type="submit" class="button-type publish-post">Publier</button>    
+                <button v-on:click="cancelNewNessage" class="button-type cancel-post"><i class="fas fa-times-circle"></i></button>
+                <button v-on:click="publishNewMessage" type="submit" class="button-type publish-post"><i class="fas fa-check-circle"></i></button>    
             </div>
         </div>
 <!--  Bloc de création message  -->
@@ -24,7 +24,7 @@
                     <span class="bloc-author-name"> {{ post.User.firstName }} {{ post.User.lastName }} </span>
                     <span class="bloc-author-avatar">    
                         <img v-if="post.User.avatar" :src="post.User.avatar" :alt="'avatar de ' + post.User.lastName + post.User.firstName" class="avatar"/>
-                        <i v-if="post.User.avatar == null || post.User.avatar == ''" class="fa fa-user-astronaut avatar"></i>
+                        <i v-if="post.User.avatar == null || post.User.avatar == ''"> <img  class="avatar" src="../assets/logos/photo.png"/> </i>
                     </span>
                 </div>
                 <div class="bloc-post">
@@ -44,15 +44,15 @@
                         <textarea v-model="post.text" class="" name="message" id="message"/>    
                         <img v-if="imagePreview" :src="imagePreview" id="preview" class=""/>     
                         <input type="file" @change="onFileSelected" accept="image/*">       
-                        <button type="submit">Publier</button>
+                        <button type="submit"><i class="fas fa-check-circle"></i></button>
                     </form>
                 </div>
 <!--  Bloc des boutons  -->
                 <div class="button">
                     <div class="button-commentary">
-                        <button class="button-commentary-reply" v-on:click="repondre('replyForm-' + post.id)">Répondre</button>
-                        <button class="button-commentary-seen" v-on:click="voir('commentSection-' + post.id)">Voir les commentaires</button>
+                        <button class="button-commentary-seen" v-on:click="voir('commentSection-' + post.id)"><i class="far fa-comments"></i></button>
                     </div>
+<!--test like
                     <div class="button-like">
                         <button class="button-like-hand" v-on:click="likePost(post.id)" v-if="like=true" >
                             <i class="far fa-thumbs-up button-like-empty"></i>
@@ -63,9 +63,10 @@
                             <span v-if="post.likes > 0" class="button-like-count-number">{{ post.likes }}</span>
                         </div>
                     </div>
+-->
                     <div class="button-author">
-                        <button class="button-author-update" v-if="userId == post.userId" v-on:click="modifPostBouton('modifSection-' + post.id)">Modifier</button>
-                        <button class="button-author-delete" v-if="userId == post.userId || statut == 'admin'" v-on:click="deletePost(post.id)">Supprimer</button>
+                        <button class="button-author-update" v-if="userId == post.userId" v-on:click="modifPostBouton('modifSection-' + post.id)"><i class="fas fa-pen"></i></button>
+                        <button class="button-author-delete" v-if="userId == post.userId || statut == 'admin'" v-on:click="deletePost(post.id)"><i class="fas fa-trash-alt"></i></button>
                     </div>
                 </div>
 <!--  Bloc des boutons  -->
@@ -146,7 +147,7 @@
                 this.newMessage = ''
                 this.isVisbleMessageContainer = false;
             }, 
-                        modifPost(post) {    
+            modifPost(post) {    
                 const formData = new FormData();                
                 formData.append("userId", this.userId);
                 formData.append("text", post.text);
@@ -164,7 +165,6 @@
                 )
                 .catch(() => {this.messError = 'Une erreur s\'est produite'})
             },
-
             // supprimer post
             deletePost(id) {
                 const postId = id;
@@ -258,32 +258,32 @@
 
 <style scoped lang="scss">
 //variables de couleurs
-$primaryColor: #081E42;
-$secondaryColor: #B84D54;
+$primaryColor: #081E42;   
+$secondaryColor: #B84D54;  
 
 .create-post{
     position:absolute;
-    top: 300px;
+    top: 280px;
     right: 50px;   
     height: 80px;
     width: 80px;
-    background-color: #FFF;
-    border: 3px solid #B84D54;
+    background-color: $secondaryColor;
+    border: 3px solid #FFF;
     border-radius: 3em;
 }
 #preview{
     width: 80%;
 }
-.fas{
-    font-size: 2em;
-    color: #081E42;
+.fas, .far{
+    font-size: 1.8em;
+    color: #FFF;
 }
 textarea{
     background-color: #FFF;
     resize : none;
     margin: 30px 30px 15px 30px;
     padding: 5px;
-    border: 1px solid #B84D54;
+    border: 1px solid $secondaryColor;
     border-radius: 1em;
     width: 90%;
     height: 50%;
@@ -295,17 +295,17 @@ label{
 input{
     color: #FFF;
     margin: 15px 0;
-    border: solid #B84D54;
+    border: solid $secondaryColor;
 }
 button{
-    background-color: #B84D54;
+    background-color: $secondaryColor;
     color: #FFF;
     margin: 15px auto;
-    border-radius: 1em;
+    border-radius: 50%;
     justify-content: space-around;
     font-size: 1.2em;
-    width: 130px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
     &-like{
         background-color: #fff;
     }
@@ -368,32 +368,29 @@ button{
         display: flex;
         flex-direction: row;
         width: 30%;
-        &-update, &-delete{
-            background-color: $primaryColor;
-        }
     }
 }
 .new-message-container{  
     margin: 40px 0 0 40px;
-    background-color: #081E42;
+    background-color: $primaryColor;
     height: auto;
     width: 70%;
-    border: #B84D54 5px solid;
+    border: $secondaryColor 5px solid;
     border-radius: 1.5em;
     display: flex;
     flex-direction: column;
 }
 .wall-container{
     margin: 110px auto;
-    background-color: #081E42;
+    background-color: $primaryColor;
     height: auto;
     width: 95%;
-    border: #B84D54 5px solid;
+    border: $secondaryColor 5px solid;
     border-radius: 1.5em;
     &-messages {
         color: white;
         background-color: #fff;
-        border: #B84D54 4px solid;
+        border: $secondaryColor 4px solid;
         border-radius: 1.5em;
         margin: 35px 35px 50px 35px;
     }
@@ -416,23 +413,23 @@ button{
 .bloc-author{
     display:flex;
     align-items: center;
-    background-color: #081E42;
+    background-color: $primaryColor;
     justify-content: space-between;
     padding: 0 10px ;
     height: 70px;
     border-radius: 1.2em 1.2em 0 0;
-    border-bottom: 5px #B84D54 solid;
+    border-bottom: 5px $secondaryColor solid;
     &-name {
         font-weight: bolder;
         font-size: 1.5em;
         color: #FFF;
-        background-color: #081E42;
+        background-color: $primaryColor;
     }
-    .avatar, .fa-user-astronaut{
+    .avatar{
         width: 60px;
         height: 60px;
         border-radius: 50%;
-        border: 1px solid #B84D54;
+        border: 1px solid $secondaryColor;
     }
 }
 
@@ -465,7 +462,16 @@ button{
         width: 100%;
     }
     .button{
-    flex-direction: column;
+        &-publish{
+        display: flex;
+        justify-content: center;
+        }
+        &-commentary{
+        width: 33%;
+        }
+        &-author{
+        width: 66%;
+        }     
     }
 }
 </style>

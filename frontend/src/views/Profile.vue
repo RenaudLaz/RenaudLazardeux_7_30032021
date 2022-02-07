@@ -175,7 +175,6 @@ $secondaryColor: #B84D54;
     flex-direction: column;
     background-color: $primaryColor;
     color: #FFF;
-
     &Resume &Connexion{
         margin-bottom: 40px;
         font-size:1.2em;
@@ -251,9 +250,14 @@ label{
 }
 
 @media (max-width: 900px){
-    .profil-author{
-        flex-direction:column;    
-    }
+    .profil{
+        &Resume{
+            margin: 5px;
+        }
+        &Author{
+            flex-direction: column;
+        }
+    }    
     .formDetails{
         width: 95%;
         margin:0;
