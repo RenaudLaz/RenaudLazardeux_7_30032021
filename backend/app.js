@@ -1,11 +1,11 @@
 /*communication avec le serveur*/
 const express = require('express');
+const cors = require('cors');
 const app = express(); /*application Express*/
-const helmet = require('helmet');
 const dbConfig = require('../Backend/config/db.config');
 const Sequelize = require('sequelize');
 
-
+console.log('app.js')
 
 /*Connection à la database*/
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
@@ -42,7 +42,7 @@ app.use((req, res, next) => {
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(helmet());
+
 const path = require('path');
 app.use('/images', express.static(path.join(__dirname, 'images')));
 

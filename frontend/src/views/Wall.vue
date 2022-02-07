@@ -271,6 +271,9 @@ $secondaryColor: #B84D54;
     border: 3px solid #B84D54;
     border-radius: 3em;
 }
+#preview{
+    width: 80%;
+}
 .fas{
     font-size: 2em;
     color: #081E42;
