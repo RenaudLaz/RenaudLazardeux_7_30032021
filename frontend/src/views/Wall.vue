@@ -104,7 +104,6 @@ test like-->
                 commentaires: [],
                 imagePreview:'',
                 //bouton
-                boutonVoir: false,
                 replyFormId: '',
                 commentSectionId: '',
                 modifId: '',
