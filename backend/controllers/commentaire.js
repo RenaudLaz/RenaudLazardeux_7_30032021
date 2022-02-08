@@ -26,7 +26,7 @@ exports.createCommentaire = (req, res, next) => {
                     res.status(400).json({ error: 'Création du Commentaire échoué' })
                 });
         } else {
-            return res.status(404).json({ error: 'Aucun message publié :('})
+            return res.status(404).json({ error: 'Aucun message publié'})
         }
     })
     .catch(error => {

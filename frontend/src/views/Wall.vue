@@ -63,7 +63,7 @@
                             <span v-if="post.likes > 0" class="button-like-count-number">{{ post.likes }}</span>
                         </div>
                     </div>
--->
+test like-->
                     <div class="button-author">
                         <button class="button-author-update" v-if="userId == post.userId" v-on:click="modifPostBouton('modifSection-' + post.id)"><i class="fas fa-pen"></i></button>
                         <button class="button-author-delete" v-if="userId == post.userId || statut == 'admin'" v-on:click="deletePost(post.id)"><i class="fas fa-trash-alt"></i></button>
@@ -105,9 +105,7 @@
                 imagePreview:'',
                 //bouton
                 boutonVoir: false,
-                filter: 'all',
                 replyFormId: '',
-                likeFormId: '',
                 commentSectionId: '',
                 modifId: '',
                 //likes
@@ -163,7 +161,7 @@
                 .then(() => {
                     window.location.reload()}
                 )
-                .catch(() => {this.messError = 'Une erreur s\'est produite'})
+                .catch(() => {console.log('Erreur à la modification du message')})
             },
             // supprimer post
             deletePost(id) {
@@ -178,7 +176,7 @@
                 .then(() => {window.location.reload()})
                 .catch(() => {console.log('Impossible de supprimer le message')})
             },   
-            //like
+/*            //like
             likePost(postId) {
                 //rechercher les likes avec le postID
                 axios.get('http://localhost:3000/api/post/' + postId + '/like', {
@@ -201,10 +199,15 @@
                 })
                 .catch(() => {console.log('Erreur à la création du like')})
             },
-            // afficher les commentaires
+*/            // afficher les commentaires
             voir(sectionId) {
-                this.commentSectionId = sectionId;
-                this.boutonVoir = !this.boutonVoir;
+                if (this.commentSectionId == sectionId) {
+                    this.commentSectionId = '';
+                } else {
+                    this.commentSectionId = sectionId;
+                }
+                // this.commentSectionId = sectionId;
+                // this.boutonVoir = !this.boutonVoir;
                
                 const postId = sectionId.replace('commentSection-', '');
 
@@ -227,9 +230,6 @@
             },            
             repondre(replyFormId) {
                 this.replyFormId = replyFormId
-            },
-            applyFilter(filter) {
-                this.filter = filter
             }
         },
         mounted() {
@@ -381,7 +381,7 @@ button{
     flex-direction: column;
 }
 .wall-container{
-    margin: 110px auto;
+    margin: 110px 0 0 0;
     background-color: $primaryColor;
     height: auto;
     width: 95%;

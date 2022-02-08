@@ -1,5 +1,5 @@
 <template>
-    <button v-on:click="logout" class="button-post">Déconnexion</button>
+    <button v-on:click="logout" class="button-post"><i class="fas fa-user-times"></i></button>
     <div class="profil"> 
         <h2>Mon profil</h2>
 
@@ -23,15 +23,15 @@
         </div>
         <div class="buton">
             <div class="butonRow" v-if="!showDelete">
-                <button v-on:click="togglewModifierElement">Modifier profil</button>
+                <button v-on:click="togglewModifierElement"><i class="fas fa-pen"></i></button>
                 <br/>
-                <button v-on:click="boutonSupprimer">Supprimer</button>
+                <button v-on:click="boutonSupprimer"><i class="fas fa-trash-alt"></i></button>
             </div> 
 
             <div v-if="showDelete">
                 <span>Êtes vous certain de vouloir supprimer votre compte ? </span><br>
-                <button v-on:click="deleteUser">Oui !</button>
-                <button v-on:click="noDeleteUser">Non !</button>
+                <button v-on:click="deleteUser"><i class="fas fa-check-circle"></i></button>
+                <button v-on:click="noDeleteUser"><i class="fas fa-times-circle"></i></button>
             </div>
 
         </div>
@@ -50,8 +50,8 @@
                 <div class="formDetails">
                     <label>Mot de passe</label>
                     <input v-model="password" type="password" autocomplete="current-password" placeholder="**********"/>
-                    <button v-on:click="updateProfil" type="button">Valider</button>
-                    <button v-on:click="noUpdateProfil" type="button">Annuler</button>
+                    <button v-on:click="updateProfil" type="button"><i class="fas fa-check-circle"></i></button>
+                    <button v-on:click="noUpdateProfil" type="button"><i class="fas fa-times-circle"></i></button>
                 </div>
         </form>
     </div>
@@ -116,7 +116,7 @@
                     window.location.reload();
 
                 })
-                .catch(() => {this.messError = 'Une erreure s\'est produite'})
+                .catch(() => {console.log('Erreur lors de la mise a jour du profil')})
 			},
             noUpdateProfil(){
                 this.showUpdateElement = !this.showUpdateElement
@@ -129,10 +129,10 @@
                         'Authorization': 'Bearer ' + localStorage.getItem('token')
                     }
                 })
-                .then(() => {console.log('Vous avez supprimer votre compte'),
+                .then(() => {console.log('Vous avez supprimé votre compte'),
                     localStorage.clear();
                     this.$router.push('/');})
-                .catch(() => {console.log('Une erreure s\'est produite')})
+                .catch(() => {console.log('Erreur lors de la suppression du profil')})
             },
             noDeleteUser(){
                 this.showDelete = !this.showDelete
@@ -224,13 +224,18 @@ img{
     height: 150px;
 }
 button{
-    background-color: $secondaryColor;
-    border: 2px #FFF solid;
-    border-radius: 1em;
+     background-color: $secondaryColor;
     color: #FFF;
-    margin: 15px auto 25px auto;
-    height: 40px;
+    margin: 15px auto;
+    border-radius: 50%;
+    justify-content: space-around;
     font-size: 1.2em;
+    width: 60px;
+    height: 60px;
+}
+.fas{
+    font-size: 1.8em;
+    color: #FFF;
 }
 textarea, input{
     color: #000;
@@ -247,6 +252,10 @@ label{
     color: #000;
     font-weight:bold;
     font-size: 1.2em;
+}
+.butonRow{
+    display: flex;
+    flex-direction:row;
 }
 
 @media (max-width: 900px){
