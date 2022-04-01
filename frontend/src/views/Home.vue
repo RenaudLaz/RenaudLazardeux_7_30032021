@@ -7,10 +7,10 @@
                 </div>
                 <form v-if="seenSignup" @submit.prevent="signup" class="signup" method="post">
                     <label for="lastName" class="signupLastName">Nom: </label>
-                    <input type="text" v-model="lastName" id="lastName" name="lastName" placeholder="Last name">
+                    <input type="text" v-model="lastName" id="lastName" name="lastName" placeholder="Lastname">
                     <br/>
                     <label for="firstName" class="signupFirstName">Prénom: </label>
-                    <input type="text" v-model="firstName" id="firstName" name="firstName" placeholder="First name">
+                    <input type="text" v-model="firstName" id="firstName" name="firstName" placeholder="Firstname">
                     <br/>
                     <label for="email" class="signupEmail">Email: </label>
                     <input type="email" v-model="signupemail" id="signupemail" name="email" placeholder="groupomania@groupomania.com">
@@ -18,7 +18,7 @@
                     <label for="password" class="signupPwd">Mot de passe: </label>
                     <input type="password" v-model="signuppwd" id="signuppwd" name="password" placeholder="**********">
                     <br/>
-                    <button class="valid">Valider connexion</button>
+                    <button class="valid">Valider inscription</button>
                 </form>
                 <form v-if="seenLogin" @submit.prevent="login" class="login" method="post">
                     <label for="email" class="loginEmail">Email: </label>
@@ -97,9 +97,11 @@
 <style scope lang="scss">
 //variables de couleurs
 $primaryColor: #081E42;
+$cd-txt--invalid: #fff;
+$cd-danger: #b20a37;
 
 .home{
-    padding-top: 50px;
+    padding-top: 130px;
     display: flex;
     justify-content: center;
     background: #FFF;
@@ -121,10 +123,12 @@ $primaryColor: #081E42;
 .buttonLogin:hover{
     background: linear-gradient(45deg, rgba(255,255,255,1) 0%, rgba(8,30,66,1) 100%);
     color: #FFF;
-}
+    animation: myAnim 1s ease 0s 1 normal forwards;
+    }
 .buttonSignup:hover{
     background: linear-gradient(315deg, rgba(255,255,255,1) 0%, rgba(8,30,66,1) 100%);
     color: #FFF;
+    animation: myAnim 1s ease 0s 1 normal forwards;
 }
 .login{
     display: block;
@@ -138,26 +142,43 @@ button{
     font-size: 1.3em;
     height: 2.5em;
     cursor: pointer;
-
+    color: $primaryColor;
 }
 .buttonLogin{
     border-right: 1px $primaryColor solid;
 }
 .valid{
+    display: block;
     border-top: 1px solid $primaryColor;
     width: 100%;
     margin-top: 35px;
     &:hover{
         background: linear-gradient(315deg, rgba(255,255,255,1) 0%, rgba(8,30,66,1) 50%, rgba(255,255,255,1) 100%);
         color: #FFF;
+        animation: myAnim 1s ease 0s 1 normal forwards;
     }
 }
 input{
     margin-top: 15px;
     width: 300px;
     font-size: 18px;
+    &:invalid {
+        background: $cd-danger;
+        border: 2px solid $cd-danger;
+        color: $cd-txt--invalid;
+    }
 }
+@keyframes myAnim {
+  0% {
+    opacity: 0;
+    color: $primaryColor;
+  }
 
+  100% {
+    opacity: 1;
+    color: #fff;
+  }
+}
 @media (max-width: 900px){
 
 }

@@ -1,18 +1,18 @@
 <template>
     <div class="wall">
-        <div class="pen">
-            <button v-on:click="showNewMessageContainer" class="create-post"><i class="fas fa-plus"></i></button>
-        </div>
 <!--  Bloc de création message  -->
-        <div class="new-message-container" v-if="isVisbleMessageContainer">
+        <div class="new-message-container">
             <form v-on:submit.prevent="publishNewMessage">
-                <textarea v-model="newMessage" class="" name="message" id="text" placeholder="Entrez votre message"/>   
+                <textarea v-model="newMessage" class="" name="message" id="text" placeholder="Quoi de neuf?"/>   
                 <img v-if="imagePreview" :src="imagePreview" id="preview" class=""/>     
-                <input type="file" @change="onFileSelected" accept="images/*">       
+                <label for="file-input">
+                    <i class="fa-solid fa-image"></i>                
+                </label>  
+                <input id="file-input" type="file" @change="onFileSelected" accept="images/*">       
             </form>
             <div class="button-publish">
-                <button v-on:click="cancelNewNessage" class="button-type cancel-post"><i class="fas fa-times-circle"></i></button>
-                <button v-on:click="publishNewMessage" type="submit" class="button-type publish-post"><i class="fas fa-check-circle"></i></button>    
+                <button v-on:click="cancelNewMessage" class="button-type cancel-post"><i class="fa-solid fa-xmark"></i></button>
+                <button v-on:click="publishNewMessage" type="submit" class="button-type publish-post"><i class="fa fa-check"></i></button>    
             </div>
         </div>
 <!--  Bloc de création message  -->
@@ -91,7 +91,6 @@ test like-->
         },
         data() {
             return {
-                isVisbleMessageContainer: false,
                 //identification
                 userId: localStorage.getItem('userId'),
                 statut: localStorage.getItem('statut'),
@@ -137,12 +136,9 @@ test like-->
                 })
                 .catch(() => {console.log('Erreur à la publication du message')}) 
             },
-            showNewMessageContainer() {
-                this.isVisbleMessageContainer = !this.isVisbleMessageContainer
-            },
             cancelNewMessage() {
-                this.newMessage = ''
-                this.isVisbleMessageContainer = false;
+                this.newMessage = '';
+                window.location.reload();
             }, 
             modifPost(post) {    
                 const formData = new FormData();                
@@ -258,34 +254,24 @@ test like-->
 <style scoped lang="scss">
 //variables de couleurs
 $primaryColor: #081E42;   
-$secondaryColor: #B84D54;  
 
-.create-post{
-    position:absolute;
-    top: 280px;
-    right: 50px;   
-    height: 80px;
-    width: 80px;
-    background-color: $secondaryColor;
-    border: 3px solid #FFF;
-    border-radius: 3em;
-}
+
 #preview{
     width: 80%;
 }
 .fas, .far{
-    font-size: 1.8em;
-    color: #FFF;
+    font-size: 1.5em;
+    color: $primaryColor;
+    background-color: #FFF;
 }
 textarea{
     background-color: #FFF;
     resize : none;
-    margin: 30px 30px 15px 30px;
+    margin: 30px 0px 15px 0px;
     padding: 5px;
-    border: 1px solid $secondaryColor;
     border-radius: 1em;
-    width: 90%;
-    height: 50%;
+    width: 97%;
+    height: 100px;
     font-size: 1.2em;
 }
 label{
@@ -294,10 +280,9 @@ label{
 input{
     color: #FFF;
     margin: 15px 0;
-    border: solid $secondaryColor;
+    border: solid $primaryColor;
 }
 button{
-    background-color: $secondaryColor;
     color: #FFF;
     margin: 15px auto;
     border-radius: 50%;
@@ -308,6 +293,18 @@ button{
     &-like{
         background-color: #fff;
     }
+}
+.fa-xmark{
+    font-size: 2em;
+    color:red
+}
+.fa-check{
+    font-size: 2em;
+    color: green;
+}
+.fa-image{
+    font-size: 3em;
+    color: #FFF;
 }
 .button{
     display: flex;
@@ -321,7 +318,7 @@ button{
         align-items: center;
         &-count{
             min-width: 30px;
-            background-color: $secondaryColor;
+            background-color: $primaryColor;
             border-radius: 50%;
             &-number{
                 font-size: 1.5em;
@@ -332,7 +329,7 @@ button{
         }
         &-full{
             position: absolute;
-            color: $secondaryColor;
+            color: $primaryColor;
             font-size: 1.7em;
             z-index: 1;
         }
@@ -370,28 +367,28 @@ button{
     }
 }
 .new-message-container{  
-    margin: 40px 0 0 40px;
-    background-color: $primaryColor;
+    margin-left: 10%;
+    background: linear-gradient(315deg, rgba(255,255,255,1) 0%, rgba(8,30,66,1) 50%, rgba(255,255,255,1) 100%);
     height: auto;
-    width: 70%;
-    border: $secondaryColor 5px solid;
+    width: 80%;
+    border: $primaryColor 1px solid;
     border-radius: 1.5em;
     display: flex;
     flex-direction: column;
 }
+
 .wall-container{
-    margin: 110px 0 0 0;
-    background-color: $primaryColor;
+    background-color: #fff;
+    position: absolute;
+    margin-left: 20%;
     height: auto;
-    width: 95%;
-    border: $secondaryColor 5px solid;
-    border-radius: 1.5em;
+    width: 60%;
     &-messages {
         color: white;
         background-color: #fff;
-        border: $secondaryColor 4px solid;
+        border: $primaryColor 4px solid;
         border-radius: 1.5em;
-        margin: 35px 35px 50px 35px;
+        margin: 10px;
     }
 }
 .bloc-post{
@@ -412,37 +409,35 @@ button{
 .bloc-author{
     display:flex;
     align-items: center;
-    background-color: $primaryColor;
     justify-content: space-between;
     padding: 0 10px ;
     height: 70px;
     border-radius: 1.2em 1.2em 0 0;
-    border-bottom: 5px $secondaryColor solid;
+    border-bottom: 5px $primaryColor solid;
     &-name {
         font-weight: bolder;
         font-size: 1.5em;
-        color: #FFF;
-        background-color: $primaryColor;
+        color: $primaryColor;
     }
     .avatar{
         width: 60px;
         height: 60px;
         border-radius: 50%;
-        border: 1px solid $secondaryColor;
+        border: 1px solid $primaryColor;
     }
 }
-
+form{
+    z-index: 999;
+    
+    &>input{
+        display: none;
+    }
+}
 @media (max-width: 900px){
     textarea{
         margin: 10px;
     }
-    .create-post{
-        position:absolute;
-        top: 200px; 
-        right: 10px;
-        height: 60px;
-        width: 60px;   
-    }
+
     .new-message-container{  
         margin: 20px;
     }

@@ -1,7 +1,7 @@
 <template>
     <button v-on:click="logout" class="button-post"><i class="fas fa-user-times"></i></button>
     <div class="profil"> 
-        <h2>Mon profil</h2>
+        <h2>Profil</h2>
 
         <div class="profilResume">
             <div class="profilAuthor">
