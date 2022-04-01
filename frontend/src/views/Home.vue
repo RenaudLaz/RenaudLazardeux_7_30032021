@@ -1,28 +1,32 @@
 <template>
         <div class="home">
             <div class="signupLogin">
-                <form @submit.prevent="signup" class="signup" method="post">
-                    <h2 class="title">Créer un compte:</h2>
+                <div class="button-signupLogin">
+                    <button v-on:click="seenLogin = true, seenSignup = false" class="buttonHome buttonLogin">Connexion</button>
+                    <button v-on:click="seenLogin = false, seenSignup = true" class="buttonHome buttonSignup">Inscription</button>
+                </div>
+                <form v-if="seenSignup" @submit.prevent="signup" class="signup" method="post">
                     <label for="lastName" class="signupLastName">Nom: </label>
                     <input type="text" v-model="lastName" id="lastName" name="lastName" placeholder="Last name">
+                    <br/>
                     <label for="firstName" class="signupFirstName">Prénom: </label>
                     <input type="text" v-model="firstName" id="firstName" name="firstName" placeholder="First name">
                     <br/>
                     <label for="email" class="signupEmail">Email: </label>
                     <input type="email" v-model="signupemail" id="signupemail" name="email" placeholder="groupomania@groupomania.com">
+                    <br/>
                     <label for="password" class="signupPwd">Mot de passe: </label>
                     <input type="password" v-model="signuppwd" id="signuppwd" name="password" placeholder="**********">
                     <br/>
-                    <button class="valid">Valider inscription</button>
+                    <button class="valid">Valider connexion</button>
                 </form>
-                <span class="infoConnection">Si vous avez déjà un compte:</span>
-                <form @submit.prevent="login" class="login" method="post">
-                    <h2 class="title">Se connecter:</h2>
+                <form v-if="seenLogin" @submit.prevent="login" class="login" method="post">
                     <label for="email" class="loginEmail">Email: </label>
                     <input type="email" v-model="loginemail" id="loginemail" name="email" placeholder="groupomania@groupomania.com">
                     <br/>
                     <label for="password" class="loginPwd">Mot de passe: </label>
                     <input type="password" v-model="loginpwd" id="loginpwd" name="password" placeholder="**********">
+                    <br/>
                     <button class="valid">Valider connexion</button>
                 </form>
             </div>
@@ -46,6 +50,8 @@
                 firstName: '',
                 signupemail: '',
                 signuppwd: '',
+                seenSignup: false,
+                seenLogin: true
             }
         },
         mounted() {
@@ -82,7 +88,7 @@
                 })
                 .then(() => {console.log('Inscription prise en compte')})
                 .catch(() => {console.log('Inscription échouée')})
-            },
+            }
         }
     }
 </script>
@@ -91,71 +97,68 @@
 <style scope lang="scss">
 //variables de couleurs
 $primaryColor: #081E42;
-$secondaryColor: #B84D54;
 
+.home{
+    padding-top: 50px;
+    display: flex;
+    justify-content: center;
+    background: #FFF;
+    
+}
 .signupLogin{
-    display:flex;
-    justify-content:center;
-    background-color: $primaryColor;
-    width: auto;
-}
-.signup, .login{
-    display:flex;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     background-color: #FFF;
-    text-align:left;
-    width:40%;
-    flex-direction:column;
-    margin: 2em;
-    padding:0 10px;
-    border: 5px solid $secondaryColor;
-    border-radius: 1.5em;
-    font-size:20px;
+    border: 1px $primaryColor solid;
+    width: 40%;
+    height: auto;
 }
-.infoConnection{
-    display:none;
+.buttonHome{
+    width: 50%;
+    border-bottom: 1px solid $primaryColor;
+}
+.buttonLogin:hover{
+    background: linear-gradient(45deg, rgba(255,255,255,1) 0%, rgba(8,30,66,1) 100%);
     color: #FFF;
 }
-.valid{
-    margin:30px 20%; 
-    width: 60%;  
-    border:2px solid #000;
-    border-radius:1.5em;
-    background-color: $secondaryColor;
+.buttonSignup:hover{
+    background: linear-gradient(315deg, rgba(255,255,255,1) 0%, rgba(8,30,66,1) 100%);
     color: #FFF;
-    font-size:1.2em;
 }
-h2{
-    text-align:center;
-    padding:20px;
-    font-size:40px;
+.login{
+    display: block;
+    padding-top: 10px;
 }
-input{
-    width: 95%;
-    border: 1px lightgrey solid;
-    border-radius: 0.8em;
-    font-size:15px;
-    padding: 5px;
+.signup{
+    display: block;
+    padding-top: 10px;
 }
 button{
-    cursor:pointer;
+    font-size: 1.3em;
+    height: 2.5em;
+    cursor: pointer;
+
 }
+.buttonLogin{
+    border-right: 1px $primaryColor solid;
+}
+.valid{
+    border-top: 1px solid $primaryColor;
+    width: 100%;
+    margin-top: 35px;
+    &:hover{
+        background: linear-gradient(315deg, rgba(255,255,255,1) 0%, rgba(8,30,66,1) 50%, rgba(255,255,255,1) 100%);
+        color: #FFF;
+    }
+}
+input{
+    margin-top: 15px;
+    width: 300px;
+    font-size: 18px;
+}
+
 @media (max-width: 900px){
-    h2{
-        font-size: 30px;
-    }
-    .signupLogin{
-        flex-direction: column;
-        width:100%;
-    }
-    .signup, .login{
-        padding:0 10px;
-        margin: 5px auto;
-        width:80%;
-        flex-direction:column;
-    }
-    .infoConnection{
-        display: contents;
-        font-weight: bolder;
-    }
+
 }
 </style>

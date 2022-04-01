@@ -1,11 +1,12 @@
 <template>
     <div class="header">
-        <h1 class="headerTitle"><mark>Groupo</mark>mania - Réseau social</h1>
 
         <div class="headerName">
             <router-link to="/Wall">
                     <img class="img-logo" src="../../src/assets/logos/icon.png" alt="Logo Groupomania"/>
             </router-link>
+
+            <h1 class="headerTitle"><mark>Groupo</mark>mania - Réseau social</h1>
 
             <router-link to="/Profile">
                 <div class="headerProfil">
@@ -23,21 +24,21 @@
 //variables de couleurs
 $primaryColor: #081E42;
 $secondaryColor: #B84D54;
-
-h1{
-    background-color: $secondaryColor;
-    color: #FFF;
-    padding: 10px 0;
-    width: 100%;
-    border-radius: 0 0 0.5em 0.5em;
+H1{
+    font-size: 4em;
+    padding: 20px 3em;
+    color:#FFF;
 }
 mark{
     color: $primaryColor;  
 }
 .header { 
-    background-color: $primaryColor;
+    background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(8,30,66,1) 100%);    
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
 
     &Name{
         display: flex;
@@ -46,19 +47,19 @@ mark{
         margin: 40px;
     }
     &Profil, img{
-        height: 100px;
-        width: 100px;
-        border: $secondaryColor 3px solid;
-        border-radius: 1.5em;
+        height: 110px;
+        width: 110px;
+        border-radius: 50%;
         text-align: center;
         background-color: #fff;
     }
+    
 }
 .far{
-    margin: 12% 0;
+    margin: 16% 0;
     font-size: 4.7em;
     background-color:#FFF;
-    color: $secondaryColor;
+    color: $primaryColor;
 }
 
 

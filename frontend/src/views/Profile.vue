@@ -173,8 +173,8 @@ $secondaryColor: #B84D54;
 .profil{
     display: flex;
     flex-direction: column;
-    background-color: $primaryColor;
-    color: #FFF;
+    background-color: #fff;
+    color: $primaryColor;
     &Resume &Connexion{
         margin-bottom: 40px;
         font-size:1.2em;
@@ -190,14 +190,14 @@ $secondaryColor: #B84D54;
     }
     &Description, span{
         font-size: 1.2em;
-        color:#FFF;
+        color:$primaryColor;
     }
 }
 .form{
     position: relative;
     top: -270px;
     background-color: #fff;
-    border: 4px solid $secondaryColor;
+    border: 4px solid $primaryColor;
     border-radius: 1em;
     padding: 1em;
     justify-content: center; 
@@ -211,22 +211,22 @@ h3{
     margin: 20px;
 }
 h2, h3{
-    color: $secondaryColor;
+    color: $primaryColor;
 }
 span{
     color: #FFF;
     font-size: 1.1em;
 }
 img{
-    border: solid 3px $secondaryColor;
+    border: solid 3px $primaryColor;
     border-radius: 50%;
     width: 150px;
     height: 150px;
 }
 button{
-     background-color: $secondaryColor;
-    color: #FFF;
+    color: $primaryColor;
     margin: 15px auto;
+    border: 1px solid $primaryColor;
     border-radius: 50%;
     justify-content: space-around;
     font-size: 1.2em;
@@ -234,15 +234,15 @@ button{
     height: 60px;
 }
 .fas{
-    font-size: 1.8em;
-    color: #FFF;
+    font-size: 1.3em;
+    color: $primaryColor;
 }
 textarea, input{
     color: #000;
     resize : none;
     margin: 15px 30px 35px 30px;
     padding: 10px;
-    border: 2px solid $secondaryColor;
+    border: 2px solid $primaryColor;
     border-radius: 1em;
     width: 90%;
     height: 50%;
